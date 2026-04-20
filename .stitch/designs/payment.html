@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CreatorSync - Checkout</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-container": "#005854",
+                        "on-surface-variant": "#ce9eaf",
+                        "secondary-fixed-dim": "#deccff",
+                        "tertiary-container": "#6af1e8",
+                        "on-surface": "#ffdde7",
+                        "surface-container-lowest": "#000000",
+                        "inverse-surface": "#fff8f8",
+                        "on-secondary": "#5200b5",
+                        "tertiary-fixed-dim": "#59e3da",
+                        "on-tertiary-fixed-variant": "#00635e",
+                        "background": "#1a0910",
+                        "surface-container": "#2a121c",
+                        "on-error": "#490013",
+                        "surface-container-high": "#321722",
+                        "inverse-on-surface": "#674e57",
+                        "on-background": "#ffdde7",
+                        "surface": "#1a0910",
+                        "on-secondary-fixed": "#5100b3",
+                        "outline": "#946979",
+                        "tertiary-dim": "#59e3da",
+                        "primary-dim": "#ff67ad",
+                        "error": "#fd6f85",
+                        "surface-tint": "#ff6daf",
+                        "on-primary-fixed-variant": "#8a0051",
+                        "on-secondary-container": "#b590ff",
+                        "primary": "#ff6daf",
+                        "on-tertiary-fixed": "#004440",
+                        "error-dim": "#c8475d",
+                        "on-error-container": "#ff97a3",
+                        "secondary-fixed": "#eaddff",
+                        "inverse-primary": "#b5146e",
+                        "on-secondary-fixed-variant": "#702ae1",
+                        "secondary-container": "#320073",
+                        "surface-dim": "#1a0910",
+                        "on-tertiary": "#00625d",
+                        "on-primary": "#4b002a",
+                        "outline-variant": "#623d4b",
+                        "surface-variant": "#3b1c29",
+                        "surface-bright": "#442130",
+                        "secondary-dim": "#8a4cfc",
+                        "tertiary-fixed": "#6af1e8",
+                        "secondary": "#d2bbff",
+                        "primary-fixed": "#ffa7c9",
+                        "surface-container-highest": "#3b1c29",
+                        "on-primary-container": "#2f0018",
+                        "tertiary": "#83fff6",
+                        "surface-container-low": "#210d15",
+                        "on-primary-fixed": "#540030",
+                        "primary-fixed-dim": "#ff91be",
+                        "error-container": "#8a1632",
+                        "primary-container": "#fa53a4"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Plus Jakarta Sans"],
+                        "label": ["Plus Jakarta Sans"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1;
+        }
+        .glass-panel {
+            background: rgba(33, 13, 21, 0.7);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+        }
+        .primary-gradient {
+            background: linear-gradient(135deg, #ff6daf 0%, #fa53a4 100%);
+        }
+        .glow-shadow {
+            box-shadow: 0 20px 40px -10px rgba(255, 109, 175, 0.15);
+        }
+        body {
+            min-height: 100dvh;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-dim selection:text-on-primary">
+<!-- Top App Bar -->
+<header class="fixed top-0 left-0 right-0 z-50 h-16 flex items-center justify-between px-4 glass-panel border-b border-white/5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full ring-2 ring-primary/20 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="User profile avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2U5ltcnKED8o3foqUZOoCkFQJGOtUqyWAtgpLGuS6N-_LSeKev7IAbicIbhcQC5FIREhzH-5oLUbHyyYJDTYpMTiZXiK-lb2pMYJpE812aGwhATT_1q_0TSXivvAWiRAundb-zbbhVfyzAulCYeGC5TlHSilet6NiBdYFWQ8z45KnUl5tP-LMYaH7aKS59kI88LQzjKOWysUgIv0nwLFCIKbWVsChTAIQI0T-U0g_lSetLwQFPwUblLNJCaKbQP4iuDkY-9MYmiE"/>
+</div>
+<span class="font-headline font-extrabold text-lg tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-primary to-primary-container">CreatorSync</span>
+</div>
+<button class="w-10 h-10 flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</header>
+<main class="max-w-2xl mx-auto px-6 pt-24 pb-32 lg:grid lg:grid-cols-12 lg:gap-12 lg:max-w-5xl">
+<!-- Summary Section -->
+<section class="lg:col-span-5 mb-10 lg:mb-0">
+<div class="mb-8">
+<h1 class="text-3xl font-headline font-bold tracking-tight text-on-surface">Secure Checkout</h1>
+<p class="text-on-surface-variant mt-2">Elevate your creative workflow today.</p>
+</div>
+<!-- Order Summary Card -->
+<div class="surface-container-low p-8 rounded-xl glow-shadow flex flex-col gap-6">
+<div class="flex justify-between items-start">
+<div>
+<h2 class="font-headline font-bold text-lg text-on-surface">Pro Monthly</h2>
+<p class="text-sm text-on-surface-variant mt-1">Advanced AI repurposing tools</p>
+</div>
+<span class="bg-tertiary-container/10 text-tertiary-fixed-dim px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border border-tertiary/20">Active Plan</span>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between text-sm">
+<span class="text-on-surface-variant">Subscription</span>
+<span class="text-on-surface">$49.00</span>
+</div>
+<div class="flex justify-between text-sm">
+<span class="text-on-surface-variant">Platform Fee</span>
+<span class="text-on-surface">$2.50</span>
+</div>
+<div class="pt-4 mt-4 border-t border-outline-variant/30 flex justify-between items-end">
+<div>
+<span class="text-xs uppercase tracking-widest font-bold text-on-surface-variant">Total due today</span>
+<div class="text-4xl font-headline font-extrabold text-on-surface mt-1">$51.50</div>
+</div>
+<div class="text-[10px] text-on-surface-variant text-right">Billed monthly.<br/>Cancel anytime.</div>
+</div>
+</div>
+<div class="flex items-center gap-3 p-4 bg-surface-container-highest/40 rounded-lg">
+<span class="material-symbols-outlined text-primary" data-icon="auto_fix_high">auto_fix_high</span>
+<span class="text-xs text-on-surface-variant leading-tight">Unlock 100GB storage and unlimited AI export credits instantly.</span>
+</div>
+</div>
+</section>
+<!-- Payment Form Section -->
+<section class="lg:col-span-7">
+<div class="space-y-8">
+<!-- Payment Method Header -->
+<div class="flex items-center justify-between">
+<h3 class="text-sm font-label font-bold uppercase tracking-widest text-on-surface-variant">Payment Method</h3>
+<div class="flex gap-2">
+<span class="material-symbols-outlined text-on-surface-variant text-xl" data-icon="credit_card">credit_card</span>
+<span class="material-symbols-outlined text-on-surface-variant text-xl opacity-40" data-icon="account_balance_wallet">account_balance_wallet</span>
+</div>
+</div>
+<!-- Payment Form -->
+<form class="space-y-6">
+<div class="space-y-4">
+<!-- Cardholder Name -->
+<div class="space-y-2">
+<label class="text-xs font-bold text-on-surface-variant ml-2">CARDHOLDER NAME</label>
+<input class="w-full bg-surface-container-lowest border-0 focus:ring-2 focus:ring-primary/50 text-on-surface placeholder:text-outline-variant rounded-md py-4 px-5 transition-all" placeholder="Alex Sterling" type="text"/>
+</div>
+<!-- Card Number -->
+<div class="space-y-2">
+<label class="text-xs font-bold text-on-surface-variant ml-2">CARD NUMBER</label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest border-0 focus:ring-2 focus:ring-primary/50 text-on-surface placeholder:text-outline-variant rounded-md py-4 px-5 transition-all" placeholder="•••• •••• •••• ••••" type="text"/>
+<div class="absolute right-4 top-1/2 -translate-y-1/2 flex gap-2">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="credit_card">credit_card</span>
+</div>
+</div>
+</div>
+<!-- Row: Expiry & CVC -->
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-2">
+<label class="text-xs font-bold text-on-surface-variant ml-2">EXPIRATION</label>
+<input class="w-full bg-surface-container-lowest border-0 focus:ring-2 focus:ring-primary/50 text-on-surface placeholder:text-outline-variant rounded-md py-4 px-5 transition-all text-center" placeholder="MM / YY" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-bold text-on-surface-variant ml-2">CVC</label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest border-0 focus:ring-2 focus:ring-primary/50 text-on-surface placeholder:text-outline-variant rounded-md py-4 px-5 transition-all text-center" placeholder="•••" type="password"/>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm" data-icon="help_outline">help_outline</span>
+</div>
+</div>
+</div>
+<!-- Country Selection -->
+<div class="space-y-2">
+<label class="text-xs font-bold text-on-surface-variant ml-2">COUNTRY OR REGION</label>
+<select class="w-full bg-surface-container-lowest border-0 focus:ring-2 focus:ring-primary/50 text-on-surface rounded-md py-4 px-5 transition-all appearance-none">
+<option>United States</option>
+<option>United Kingdom</option>
+<option>Germany</option>
+<option>Japan</option>
+</select>
+</div>
+</div>
+<!-- Additional Options -->
+<div class="flex items-center gap-3 px-2">
+<div class="relative flex items-center">
+<input checked="" class="w-5 h-5 rounded bg-surface-container-lowest border-outline-variant text-primary focus:ring-offset-background focus:ring-primary" type="checkbox"/>
+</div>
+<label class="text-xs text-on-surface-variant leading-relaxed">Securely save my information for 1-click checkout with Link.</label>
+</div>
+<!-- Action Button -->
+<div class="pt-6">
+<button class="w-full primary-gradient text-on-primary font-headline font-bold text-lg py-5 rounded-xl shadow-xl hover:opacity-90 active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-3" type="submit">
+<span class="material-symbols-outlined fill" data-icon="lock">lock</span>
+                            Pay $51.50
+                        </button>
+<p class="text-center text-[10px] text-on-surface-variant mt-6 uppercase tracking-widest font-medium">
+                            Encrypted with AES-256 • Verified by CreatorSync Security
+                        </p>
+</div>
+</form>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 right-0 z-50 glass-panel border-t border-white/5 pb-safe">
+<div class="flex justify-around items-center h-16">
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="auto_videocam">auto_videocam</span>
+<span class="text-[10px] font-bold uppercase tracking-wider">Repurpose</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined fill" data-icon="payments">payments</span>
+<span class="text-[10px] font-bold uppercase tracking-wider">Pricing</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="text-[10px] font-bold uppercase tracking-wider">Profile</span>
+</button>
+</div>
+</nav>
+<!-- Footer Decorative Leak -->
+<div class="fixed bottom-0 left-1/2 -translate-x-1/2 w-[120%] h-32 bg-primary/10 blur-[100px] pointer-events-none -z-10 rounded-full"></div>
+</body></html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-tint": "#ff6daf",
+                        "on-surface-variant": "#ce9eaf",
+                        "on-secondary-fixed": "#5100b3",
+                        "background": "#1a0910",
+                        "on-tertiary-container": "#005854",
+                        "surface": "#1a0910",
+                        "on-tertiary-fixed-variant": "#00635e",
+                        "on-error-container": "#ff97a3",
+                        "on-tertiary": "#00625d",
+                        "surface-dim": "#1a0910",
+                        "on-surface": "#ffdde7",
+                        "on-error": "#490013",
+                        "primary-fixed": "#ffa7c9",
+                        "tertiary": "#83fff6",
+                        "on-primary-fixed-variant": "#8a0051",
+                        "tertiary-container": "#6af1e8",
+                        "on-background": "#ffdde7",
+                        "surface-variant": "#3b1c29",
+                        "inverse-on-surface": "#674e57",
+                        "on-primary": "#4b002a",
+                        "tertiary-fixed": "#6af1e8",
+                        "inverse-primary": "#b5146e",
+                        "outline": "#946979",
+                        "secondary-container": "#320073",
+                        "tertiary-dim": "#59e3da",
+                        "error-dim": "#c8475d",
+                        "surface-container-highest": "#3b1c29",
+                        "outline-variant": "#623d4b",
+                        "on-secondary": "#5200b5",
+                        "error-container": "#8a1632",
+                        "surface-container-high": "#321722",
+                        "on-tertiary-fixed": "#004440",
+                        "tertiary-fixed-dim": "#59e3da",
+                        "primary-fixed-dim": "#ff91be",
+                        "error": "#fd6f85",
+                        "inverse-surface": "#fff8f8",
+                        "surface-container": "#2a121c",
+                        "on-primary-fixed": "#540030",
+                        "secondary-fixed": "#eaddff",
+                        "primary-dim": "#ff67ad",
+                        "on-secondary-container": "#b590ff",
+                        "surface-bright": "#442130",
+                        "surface-container-low": "#210d15",
+                        "secondary-fixed-dim": "#deccff",
+                        "primary-container": "#fa53a4",
+                        "on-secondary-fixed-variant": "#702ae1",
+                        "primary": "#ff6daf",
+                        "secondary": "#d2bbff",
+                        "on-primary-container": "#2f0018",
+                        "surface-container-lowest": "#000000",
+                        "secondary-dim": "#8a4cfc"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Plus Jakarta Sans"],
+                        "label": ["Plus Jakarta Sans"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #1a0910;
+        }
+        .glass-card {
+            background: rgba(59, 28, 41, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 109, 175, 0.1);
+        }
+        .neon-glow {
+            box-shadow: 0 0 20px rgba(255, 109, 175, 0.4);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-surface antialiased pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full flex justify-between items-center px-6 py-4 bg-[#1a0910]/80 backdrop-blur-xl docked full-width top-0 z-50 tonal-shift">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden border border-primary/30">
+<img alt="user profile" class="w-full h-full object-cover" data-alt="Close-up portrait of a stylish young creator with soft pink studio lighting and a clean dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-ANu5-u6OmO990qj-5socBytlWEkaYxjyeB7qPe0enrP8NiS2MM9N3H6s6aAxGcL-dvhLCQvSgTyskEcIb0__9TKhVBMHNIwshbDHJLAIUIs_2Wz_nDv1Yl8nuUyIf1frr1UecrjnwIIg43VDap3urJtZxUaZ3o-o3S0cv-Dm77Wt5Nd4yl4RVeUvXSRqf5I8Qk9vBWYIt3VKCmJyjMGYj55rBC5YQjDNFxWHN8N3SKlx8_5FIiHip2Qjn3Lpr2tqZay7WY4zM4U"/>
+</div>
+<h1 class="text-xl font-black bg-gradient-to-r from-[#ff6daf] to-[#fa53a4] bg-clip-text text-transparent drop-shadow-[0_0_8px_rgba(255,109,175,0.4)] tracking-tight">CreatorSync</h1>
+</div>
+<button class="material-symbols-outlined text-pink-500 hover:opacity-80 transition-opacity active:scale-95 duration-200">notifications</button>
+</header>
+<main class="pt-24 px-6 max-w-4xl mx-auto space-y-12">
+<!-- Hero Profile Section -->
+<section class="flex flex-col items-center text-center space-y-6">
+<div class="relative">
+<div class="absolute inset-0 rounded-full bg-primary/20 blur-2xl"></div>
+<div class="w-40 h-40 rounded-full p-1 bg-gradient-to-tr from-primary to-tertiary neon-glow relative">
+<div class="w-full h-full rounded-full overflow-hidden border-4 border-background">
+<img alt="Alex Sterling" class="w-full h-full object-cover" data-alt="Portrait of a modern young man with a creative professional aesthetic, dark studio setting with magenta accent lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNIdbpKsbG1ckQn7jHlp1IlQ-kIGWNyumCqss9pGgQhTdZMwFH1Teiud5yTaSrM3Ve3L7lEW87onC-zGjIE1To_H9Yl_wvmTMkgm4Acba0hdmmhtuUI5X8a4jUX71e7Gs7bs4HZYl8Ql-vzVdCmQeVuqr8u_nDFakOwhuks502kK86AL5RSVAOO6YNpJaHCc3T1IrocHPAO6Qzf7uWJDswiG0ADBhZbFdR0tQyeWzU1T5VaQY16OYDH84pIIarpwxoGzYKYaXA-Vk"/>
+</div>
+</div>
+<div class="absolute -bottom-2 -right-2 bg-primary text-on-primary w-10 h-10 rounded-full flex items-center justify-center shadow-lg border-2 border-background">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+</div>
+<div class="space-y-1">
+<h2 class="text-4xl font-extrabold tracking-tight text-on-surface">Alex Sterling</h2>
+<p class="text-primary font-medium tracking-wide">@alex_repurposer</p>
+</div>
+<div class="flex gap-4 pt-2">
+<button class="px-8 py-3 bg-gradient-to-r from-primary to-primary-container text-on-primary font-bold rounded-xl active:scale-95 transition-all shadow-[0_0_20px_rgba(250,83,164,0.3)]">
+                    Edit Profile
+                </button>
+<button class="w-12 h-12 flex items-center justify-center bg-surface-container-high rounded-xl text-primary border border-outline-variant active:scale-95 transition-all">
+<span class="material-symbols-outlined">share</span>
+</button>
+</div>
+</section>
+<!-- Stats Bento Grid -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="glass-card p-6 rounded-xl flex flex-col items-center justify-center space-y-2 group hover:bg-surface-container-high transition-colors">
+<span class="text-on-surface-variant font-label text-[10px] uppercase tracking-[0.1em]">Videos Repurposed</span>
+<span class="text-3xl font-black text-primary">1,284</span>
+<div class="w-full h-1 bg-surface-container-low rounded-full mt-4 overflow-hidden">
+<div class="w-3/4 h-full bg-primary shadow-[0_0_8px_rgba(255,109,175,1)]"></div>
+</div>
+</div>
+<div class="glass-card p-6 rounded-xl flex flex-col items-center justify-center space-y-2 group hover:bg-surface-container-high transition-colors">
+<span class="text-on-surface-variant font-label text-[10px] uppercase tracking-[0.1em]">Total Clips</span>
+<span class="text-3xl font-black text-tertiary">5,912</span>
+<div class="flex items-center gap-1 text-[12px] text-tertiary/70 mt-4">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>
+<span>+12% this month</span>
+</div>
+</div>
+<div class="glass-card p-6 rounded-xl border border-primary/20 flex flex-col items-center justify-center space-y-2 bg-gradient-to-b from-surface-container-high to-background">
+<span class="text-on-surface-variant font-label text-[10px] uppercase tracking-[0.1em]">AI Credits Remaining</span>
+<div class="flex items-baseline gap-1">
+<span class="text-3xl font-black text-on-surface">420</span>
+<span class="text-on-surface-variant text-sm">/ 1000</span>
+</div>
+<button class="mt-4 text-[11px] font-bold text-primary underline underline-offset-4 tracking-wider uppercase">Top Up Now</button>
+</div>
+</section>
+<!-- Settings List -->
+<section class="space-y-4">
+<h3 class="text-on-surface-variant font-label text-xs uppercase tracking-[0.2em] px-2">Account Management</h3>
+<div class="bg-surface-container-low rounded-xl overflow-hidden shadow-2xl">
+<!-- Setting Item -->
+<button class="w-full flex items-center justify-between p-5 hover:bg-surface-bright transition-colors group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-primary-fixed group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">manage_accounts</span>
+</div>
+<span class="font-bold text-on-surface">Account Settings</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+</button>
+<div class="h-px bg-outline-variant/10 mx-6"></div>
+<button class="w-full flex items-center justify-between p-5 hover:bg-surface-bright transition-colors group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-tertiary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">subscriptions</span>
+</div>
+<div class="text-left">
+<span class="block font-bold text-on-surface">Connected YouTube Channels</span>
+<span class="text-xs text-on-surface-variant">3 channels active</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+</button>
+<div class="h-px bg-outline-variant/10 mx-6"></div>
+<button class="w-full flex items-center justify-between p-5 hover:bg-surface-bright transition-colors group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">payments</span>
+</div>
+<div class="text-left">
+<span class="block font-bold text-on-surface">Subscription Details</span>
+<span class="text-[10px] px-2 py-0.5 rounded-full bg-primary/20 text-primary-fixed font-bold">PRO PLAN</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+</button>
+<div class="h-px bg-outline-variant/10 mx-6"></div>
+<button class="w-full flex items-center justify-between p-5 hover:bg-surface-bright transition-colors group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-on-surface group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">security</span>
+</div>
+<span class="font-bold text-on-surface">Security</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+</button>
+<div class="h-px bg-outline-variant/10 mx-6"></div>
+<button class="w-full flex items-center justify-between p-5 hover:bg-error-container/10 transition-colors group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-error-container/20 flex items-center justify-center text-error group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">logout</span>
+</div>
+<span class="font-bold text-error">Logout</span>
+</div>
+</button>
+</div>
+</section>
+<!-- Danger Zone Prompt -->
+<div class="p-8 rounded-xl border border-error-container/20 bg-error-container/5 flex flex-col md:flex-row items-center justify-between gap-4">
+<div class="text-center md:text-left">
+<h4 class="font-bold text-on-surface">Delete Workspace</h4>
+<p class="text-sm text-on-surface-variant">Permanently remove all video data and connected accounts.</p>
+</div>
+<button class="px-6 py-2 border border-error text-error text-sm font-bold rounded-full hover:bg-error hover:text-on-error transition-colors">
+                Deactivate
+            </button>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-8 pt-4 bg-[#210d15]/90 backdrop-blur-2xl docked full-width bottom-0 rounded-t-[3rem] shadow-[0_-20px_40px_-10px_rgba(236,72,153,0.1)]">
+<a class="flex flex-col items-center justify-center text-[#ffdde7]/40 px-6 py-2 hover:text-pink-300 transition-colors active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined mb-1">auto_awesome</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] uppercase tracking-[0.05em] font-bold">Repurpose</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#ffdde7]/40 px-6 py-2 hover:text-pink-300 transition-colors active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined mb-1">payments</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] uppercase tracking-[0.05em] font-bold">Pricing</span>
+</a>
+<!-- Active State: Profile -->
+<a class="flex flex-col items-center justify-center bg-pink-500/20 text-pink-400 rounded-full px-6 py-2 scale-105 transition-all duration-300 shadow-[0_0_15px_rgba(236,72,153,0.3)]" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">account_circle</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] uppercase tracking-[0.05em] font-bold">Profile</span>
+</a>
+</nav>
+</body></html>
