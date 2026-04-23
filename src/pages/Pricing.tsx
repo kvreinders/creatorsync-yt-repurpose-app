@@ -73,7 +73,7 @@ export const PricingPage: React.FC = () => {
         </p>
       </section>
 
-      <div className="space-y-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-center pt-8">
         <PricingTier 
           title="Hobby"
           price="$0"

@@ -4,6 +4,7 @@ import { MainLayout } from './components/layout/MainLayout';
 import { ToolPage } from './pages/Tool';
 import { PricingPage } from './pages/Pricing';
 import { ProfilePage } from './pages/Profile';
+import { RegistrationPage } from './pages/Registration';
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -11,6 +12,7 @@ function AnimatedRoutes() {
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
+        <Route path="/auth" element={<RegistrationPage />} />
         <Route element={<MainLayout />}>
           <Route path="/" element={<ToolPage />} />
           <Route path="/pricing" element={<PricingPage />} />

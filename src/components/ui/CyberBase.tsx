@@ -26,7 +26,7 @@ export const CyberButton: React.FC<CyberButtonProps> = (props) => {
       whileTap={{ scale: 0.98 }}
       whileHover={{ y: -2 }}
       className={cn(
-        'px-6 py-4 rounded-xl font-display uppercase tracking-widest text-sm transition-all duration-300',
+        'px-6 py-3 rounded-xl font-display uppercase tracking-widest text-[11px] font-bold transition-all duration-300',
         variants[variant],
         glow && variant === 'primary' && 'glow-primary',
         className
