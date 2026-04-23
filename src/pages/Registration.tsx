@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Wand2, Mail, Lock, Github, Chrome } from 'lucide-react';
+import { Wand2, Mail, Lock, Github, Globe } from 'lucide-react';
 import { GlassCard, CyberButton } from '../components/ui/CyberBase';
 import { Link } from 'react-router-dom';
 
@@ -60,7 +60,7 @@ export const RegistrationPage: React.FC = () => {
                 Github
               </button>
               <button className="flex items-center justify-center gap-2 py-3 bg-surface-high rounded-xl border border-outline/20 hover:bg-surface-highest transition-all text-[11px] font-bold">
-                <Chrome size={16} />
+                <Globe size={16} />
                 Google
               </button>
             </div>
