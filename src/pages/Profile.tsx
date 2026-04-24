@@ -1,32 +1,66 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Settings, Video, CreditCard, Shield, LogOut, ChevronRight, Share2, BadgeCheck, TrendingUp } from 'lucide-react';
-import { USER_DATA } from '../data/mockData';
+import { Settings, Video, CreditCard, Shield, LogOut, ChevronRight, Share2, BadgeCheck, TrendingUp, Sparkles } from 'lucide-react';
 import { GlassCard, CyberButton } from '../components/ui/CyberBase';
+import { useUser } from '../contexts/UserContext';
+import { useAuth } from '../contexts/AuthContext';
 
 export const ProfilePage: React.FC = () => {
+  const { avatar, name, setIsAvatarModalOpen } = useUser();
+  const { user } = useAuth();
+  const [clipCount, setClipCount] = useState(0);
+
+  useEffect(() => {
+    if (user) {
+      fetch(`http://localhost:3001/api/clips/${user.id}`)
+        .then(res => res.json())
+        .then(data => {
+          if (Array.isArray(data)) setClipCount(data.length);
+        })
+        .catch(err => console.error(err));
+    }
+  }, [user]);
+
+  const planLimits = {
+    'Hobby Plan': 3,
+    'Agency Plan': 9999,
+    'Cyber Rose Premium': 50
+  };
+
+  const currentLimit = planLimits[user?.plan as keyof typeof planLimits] || 3;
+  const usagePercent = Math.min((clipCount / currentLimit) * 100, 100);
+
   return (
     <motion.div 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       className="space-y-10 pb-10 lg:space-y-0 lg:grid lg:grid-cols-12 lg:gap-12"
     >
-      {/* Profile Header (Sidebar-like on Desktop) */}
+      {/* Profile Header */}
       <section className="flex flex-col items-center text-center space-y-6 pt-4 lg:col-span-4 lg:text-left lg:items-start lg:sticky lg:top-10 lg:h-fit">
-        <div className="relative">
-          <div className="w-32 h-32 lg:w-40 lg:h-40 rounded-full p-1 bg-gradient-to-tr from-primary to-tertiary glow-primary">
+        <button 
+          onClick={() => setIsAvatarModalOpen(true)}
+          className="relative group active:scale-95 transition-transform"
+        >
+          <div className="w-32 h-32 lg:w-40 lg:h-40 rounded-full p-1 bg-gradient-to-tr from-primary to-tertiary glow-primary group-hover:scale-105 transition-transform">
             <div className="w-full h-full rounded-full border-4 border-background overflow-hidden">
-              <img src={USER_DATA.avatar} alt={USER_DATA.name} className="w-full h-full object-cover" />
+              <img src={avatar} alt={name} className="w-full h-full object-cover" />
             </div>
           </div>
           <div className="absolute -bottom-1 -right-1 lg:bottom-2 lg:right-2 bg-primary text-background p-1.5 rounded-full border-2 border-background glow-primary">
             <BadgeCheck size={20} fill="currentColor" />
           </div>
-        </div>
+        </button>
 
         <div className="space-y-1">
-          <h2 className="text-3xl lg:text-4xl font-display font-black tracking-tight">{USER_DATA.name}</h2>
-          <p className="text-primary font-medium tracking-widest text-xs uppercase opacity-80">@alex_repurposer</p>
+          <div className="flex items-center justify-center lg:justify-start gap-2">
+            <h2 className="text-3xl lg:text-4xl font-display font-black tracking-tight">{name}</h2>
+            <div className="bg-primary/10 border border-primary/20 px-2 py-0.5 rounded-md flex items-center gap-1">
+              <Sparkles size={10} className="text-primary" />
+              <span className="text-[8px] font-black uppercase text-primary tracking-tighter">{user?.plan}</span>
+            </div>
+          </div>
+          <p className="text-primary font-medium tracking-widest text-xs uppercase opacity-80">@{user?.username || 'alex_repurposer'}</p>
         </div>
 
         <div className="flex gap-4 w-full">
@@ -44,35 +78,35 @@ export const ProfilePage: React.FC = () => {
         {/* Stats Bento Grid */}
         <section className="grid grid-cols-2 gap-4">
           <GlassCard className="col-span-2 flex flex-col items-center justify-center p-8 space-y-2">
-            <span className="text-on-surface-variant text-[10px] uppercase tracking-[0.2em] font-black">AI Credits Remaining</span>
+            <span className="text-on-surface-variant text-[10px] uppercase tracking-[0.2em] font-black">AI Repurposing Limit</span>
             <div className="flex items-baseline gap-2">
-              <span className="text-4xl lg:text-5xl font-black text-on-surface">420</span>
-              <span className="text-on-surface-variant text-sm font-medium">/ 1000</span>
+              <span className="text-4xl lg:text-5xl font-black text-on-surface">{clipCount}</span>
+              <span className="text-on-surface-variant text-sm font-medium">/ {currentLimit === 9999 ? '∞' : currentLimit}</span>
             </div>
             <div className="w-full h-2 bg-background rounded-full mt-2 overflow-hidden border border-outline/10">
               <motion.div 
                 initial={{ width: 0 }}
-                animate={{ width: '42%' }}
+                animate={{ width: `${usagePercent}%` }}
                 className="h-full bg-primary glow-primary"
               />
             </div>
           </GlassCard>
 
           <GlassCard className="p-6 space-y-2">
-            <span className="text-on-surface-variant text-[10px] uppercase tracking-widest font-bold">Videos</span>
-            <span className="text-3xl font-black text-primary">1,284</span>
+            <span className="text-on-surface-variant text-[10px] uppercase tracking-widest font-bold">Videos Processed</span>
+            <span className="text-3xl font-black text-primary">{Math.floor(clipCount / 1.5)}</span>
             <div className="flex items-center gap-1 text-[10px] text-primary/70">
               <TrendingUp size={12} />
-              <span>Top 5% global</span>
+              <span>Current Cycle</span>
             </div>
           </GlassCard>
 
           <GlassCard className="p-6 space-y-2">
-            <span className="text-on-surface-variant text-[10px] uppercase tracking-widest font-bold">Clips</span>
-            <span className="text-3xl font-black text-tertiary">5,912</span>
+            <span className="text-on-surface-variant text-[10px] uppercase tracking-widest font-bold">Generated Clips</span>
+            <span className="text-3xl font-black text-tertiary">{clipCount}</span>
             <div className="flex items-center gap-1 text-[10px] text-tertiary/70">
               <TrendingUp size={12} />
-              <span>+12.4% this month</span>
+              <span>Lifetime Growth</span>
             </div>
           </GlassCard>
         </section>
@@ -84,7 +118,7 @@ export const ProfilePage: React.FC = () => {
             {[
               { icon: <Settings size={18} />, label: "Account Settings", color: "text-primary" },
               { icon: <Video size={18} />, label: "Connected Channels", color: "text-tertiary", badge: "3 Active" },
-              { icon: <CreditCard size={18} />, label: "Subscription", color: "text-primary", badge: "PRO PLAN" },
+              { icon: <CreditCard size={18} />, label: "Subscription", color: "text-primary", badge: user?.plan?.toUpperCase() },
               { icon: <Shield size={18} />, label: "Security", color: "text-on-surface" },
             ].map((item, idx) => (
               <React.Fragment key={idx}>
