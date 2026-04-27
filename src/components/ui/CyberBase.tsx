@@ -38,11 +38,15 @@ export const CyberButton: React.FC<CyberButtonProps> = (props) => {
   );
 };
 
-export const GlassCard: React.FC<{ children: React.ReactNode; className?: string }> = ({ children, className }) => {
+interface GlassCardProps extends React.HTMLAttributes<HTMLDivElement> {
+  children: React.ReactNode;
+}
+
+export const GlassCard: React.FC<GlassCardProps> = ({ children, className, ...props }) => {
   return (
-    <div className={cn('glass-card p-6 relative overflow-hidden group', className)}>
+    <div className={cn('glass-card p-6 relative overflow-hidden group', className)} {...props}>
       {/* Subtle corner light effect */}
-      <div className="absolute -top-10 -right-10 w-24 h-24 bg-primary/10 blur-3xl group-hover:bg-primary/20 transition-all duration-500" />
+      <div className="absolute -top-10 -right-10 w-24 h-24 bg-primary/10 blur-3xl group-hover:bg-primary/20 transition-all duration-500 pointer-events-none" />
       <div className="relative z-10">
         {children}
       </div>

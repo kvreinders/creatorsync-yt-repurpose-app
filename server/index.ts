@@ -123,8 +123,8 @@ app.post('/api/repurpose', async (req, res) => {
     
     // 1. Get video info and direct stream URL
     const metadata: any = await ytDlp.getVideoInfo(url);
-    const streamUrls = await ytDlp.execPromise([url, '-g', '-f', 'bestvideo+bestaudio/best']);
-    const streamUrl = streamUrls.split('\n')[0].trim(); // Get the first URL
+    const streamUrlsRaw = await ytDlp.execPromise([url, '-g', '-f', 'bestvideo+bestaudio/best']);
+    const urls = streamUrlsRaw.trim().split('\n').map(u => u.trim());
     
     const videoTitle = metadata.title;
     const duration = metadata.duration;
@@ -141,14 +141,44 @@ app.post('/api/repurpose', async (req, res) => {
 
       console.log(`Processing clip ${i+1}/${requestedClips} starting at ${startTime}s`);
 
-      // 3. Use the streamUrl instead of the raw YouTube URL
+      // 3. Merge video and audio streams
       await new Promise((resolve, reject) => {
-        ffmpeg(streamUrl)
-          .setStartTime(startTime)
-          .setDuration(clipDuration)
+        console.log(`Final stream URLs:`, urls);
+        let command = ffmpeg();
+        
+        // Add inputs with fast seeking AND reconnection options for each stream
+        urls.forEach(u => {
+          command = command.input(u).inputOptions([
+            `-ss ${startTime}`,               // Fast seek BEFORE input for accuracy and speed
+            '-reconnect 1',
+            '-reconnect_at_eof 1',
+            '-reconnect_streamed 1',
+            '-reconnect_delay_max 2'
+          ]);
+        });
+        
+        command
+          .setDuration(clipDuration)            // Keep the duration
+          .outputOptions([
+            '-map 0:v:0',                       // Map video from first input
+            urls.length > 1 ? '-map 1:a:0' : '-map 0:a:0', // Map audio from second input if exists
+            '-c:v libx264',                     // H.264 video codec
+            '-c:a aac',                         // AAC audio codec
+            '-b:a 192k',                        // High quality audio
+            '-pix_fmt yuv420p',                 // Better compatibility
+            '-preset ultrafast',                // Faster encoding for dev
+            '-shortest'                         // Finish when shortest stream ends
+          ])
           .output(outputPath)
-          .on('end', resolve)
-          .on('error', reject)
+          .on('start', (cmd) => console.log('Spawned FFmpeg with command: ' + cmd))
+          .on('end', () => {
+            console.log('Finished processing clip:', outputFilename);
+            resolve(true);
+          })
+          .on('error', (err) => {
+            console.error('FFmpeg processing error:', err);
+            reject(err);
+          })
           .run();
       });
 

@@ -133,6 +133,24 @@ export const ToolPage: React.FC = () => {
     setIsVideoPlayerOpen(true);
   };
 
+  const handleDownloadClip = async (e: React.MouseEvent, clip: Clip) => {
+    e.stopPropagation();
+    try {
+      const response = await fetch(`http://localhost:3001/api/download/${clip.id}`);
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `CreatorSync_${clip.title.replace(/\s+/g, '_')}.mp4`);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('Download failed:', error);
+    }
+  };
+
   return (
     <motion.div 
       initial={{ opacity: 0, y: 15 }}
@@ -282,21 +300,24 @@ export const ToolPage: React.FC = () => {
                 >
                   <GlassCard 
                     onClick={() => handleWatchClip(clip)}
-                    className="p-4 bg-white/[0.02] border-white/5 hover:border-primary/40 hover:bg-white/[0.05] transition-all cursor-pointer group relative overflow-hidden active:scale-[0.98]"
+                    className="p-4 bg-white/[0.02] border-white/5 hover:border-primary/40 hover:bg-white/[0.05] transition-all cursor-pointer group relative overflow-hidden active:scale-[0.98] z-10"
                   >
                     <div className="flex gap-6 items-center">
-                      <div className="w-20 h-20 rounded-2xl overflow-hidden bg-black relative shrink-0 border border-white/5">
+                      <div className="w-20 h-20 rounded-2xl overflow-hidden bg-black relative shrink-0 border border-white/5 group/thumb">
                         <img 
                           src={clip.thumbnailUrl || `https://images.unsplash.com/photo-1622737133809-d95047b9e673?auto=format&fit=crop&q=80&w=300`} 
                           alt="Thumb" 
                           className="w-full h-full object-cover opacity-60 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700"
                         />
-                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all">
-                           <Download className="w-6 h-6 text-primary drop-shadow-[0_0_10px_rgba(255,0,255,1)]" />
-                        </div>
+                        <button 
+                          onClick={(e) => handleDownloadClip(e, clip)}
+                          className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all bg-primary/60 backdrop-blur-md z-20 group/btn rounded-2xl"
+                        >
+                           <Download className="w-8 h-8 text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.8)] group-hover/btn:scale-110 transition-transform" />
+                        </button>
                       </div>
                       <div className="flex-1 min-w-0 pr-10">
-                        <p className="text-sm font-black truncate tracking-tight mb-1 group-hover:text-primary transition-colors">{clip.title}</p>
+                        <p className="text-sm font-black truncate tracking-tight mb-1 group-hover:text-primary transition-colors uppercase">{clip.title}</p>
                         <div className="flex items-center gap-4">
                            <p className="text-[9px] text-on-surface-variant font-bold uppercase tracking-widest opacity-40">
                               {clip.timestamp}
@@ -309,7 +330,7 @@ export const ToolPage: React.FC = () => {
                       </div>
                       <button 
                         onClick={(e) => handleDeleteClip(e, clip.id)}
-                        className="absolute right-4 top-1/2 -translate-y-1/2 w-9 h-9 rounded-xl bg-red-500/5 text-red-500/40 opacity-0 group-hover:opacity-100 hover:bg-red-500 hover:text-white transition-all flex items-center justify-center z-20"
+                        className="absolute right-4 top-1/2 -translate-y-1/2 w-9 h-9 rounded-xl bg-red-500/5 text-red-500/40 opacity-0 group-hover:opacity-100 hover:bg-red-500 hover:text-white transition-all flex items-center justify-center z-30"
                       >
                         <Trash2 size={16} />
                       </button>
