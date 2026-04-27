@@ -68,6 +68,47 @@ export const ToolPage: React.FC = () => {
     setIsProcessing(true);
     setProgress(0);
     setShowComplete(false);
+
+    try {
+      // Fake progress increment to keep UI alive
+      const progressInterval = setInterval(() => {
+        setProgress(prev => (prev < 90 ? prev + 1 : prev));
+      }, 500);
+
+      const response = await fetch('http://localhost:3001/api/repurpose', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          url,
+          requestedClips,
+          userId: user?.id
+        }),
+      });
+
+      clearInterval(progressInterval);
+
+      if (response.ok) {
+        const savedClips = await response.json();
+        setProgress(100);
+        setClips(prev => [...savedClips, ...prev]);
+        refreshUsage();
+        
+        setTimeout(() => {
+          setIsProcessing(false);
+          setProgress(0);
+          setShowComplete(true);
+          setUrl('');
+          setTimeout(() => setShowComplete(false), 3000);
+        }, 1000);
+      } else {
+        throw new Error('Failed to repurpose video');
+      }
+    } catch (error) {
+      console.error('Error during repurpose:', error);
+      alert('Pipeline Error: Failed to process video. Ensure the link is valid and try again.');
+      setIsProcessing(false);
+      setProgress(0);
+    }
   };
 
   const handleDeleteClip = async (e: React.MouseEvent, id: string) => {
@@ -91,74 +132,6 @@ export const ToolPage: React.FC = () => {
     setSelectedClip(clip);
     setIsVideoPlayerOpen(true);
   };
-
-  useEffect(() => {
-    if (isProcessing && progress < 100) {
-      const timer = setInterval(() => {
-        setProgress(prev => {
-          const next = prev + Math.random() * 5;
-          if (next < 25) setProcessingStep('Syncing AI Kernels...');
-          else if (next < 50) setProcessingStep('Mapping Virality Heatmap...');
-          else if (next < 75) setProcessingStep('Segmenting Key Moments...');
-          else setProcessingStep('Finalizing Vertical Renders...');
-          return next >= 100 ? 100 : next;
-        });
-      }, 250);
-      return () => clearInterval(timer);
-    }
-  }, [isProcessing, progress]);
-
-  useEffect(() => {
-    if (progress === 100 && isProcessing) {
-      const generateClips = async () => {
-        const videoId = getYTId(url);
-        const timestampLabels = ['01:24', '03:45', '07:12', '10:30', '12:15', '15:40', '18:22', '21:05', '24:30', '28:10'];
-        
-        try {
-          const savedClips = [];
-          for (let i = 0; i < requestedClips; i++) {
-            const frameIndex = (i % 3) + 1; 
-            const thumbnailUrl = videoId ? `https://img.youtube.com/vi/${videoId}/${frameIndex}.jpg` : undefined;
-
-            const newClip = {
-              title: `Viral Moment @ ${timestampLabels[i % timestampLabels.length]}`,
-              duration: '00:52',
-              style: 'Cyber Rose',
-              timestamp: 'Just now',
-              thumbnailUrl,
-              videoUrl: url,
-              segmentTime: timestampLabels[i % timestampLabels.length],
-              userId: user?.id
-            };
-
-            const response = await fetch('http://localhost:3001/api/clips', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(newClip),
-            });
-
-            if (response.ok) {
-              const saved = await response.json();
-              savedClips.push(saved);
-            }
-          }
-
-          setClips(prev => [...savedClips, ...prev]);
-          refreshUsage();
-          setIsProcessing(false);
-          setProgress(0);
-          setShowComplete(true);
-          setUrl('');
-          setTimeout(() => setShowComplete(false), 3000);
-        } catch (error) {
-          console.error('Error saving clips:', error);
-          setIsProcessing(false);
-        }
-      };
-      
-      generateClips();
-    }
-  }, [progress, isProcessing, user?.id, refreshUsage, requestedClips, url]);
 
   return (
     <motion.div 
@@ -233,7 +206,7 @@ export const ToolPage: React.FC = () => {
                   variant="primary" 
                   className="w-full py-5 text-[11px] font-black tracking-[0.3em] uppercase shadow-[0_0_40px_rgba(255,0,255,0.2)] hover:scale-[1.01] active:scale-95 transition-all"
                   onClick={handleRepurpose}
-                  disabled={!url}
+                  disabled={!url || isProcessing}
                 >
                   <div className="flex items-center justify-center gap-3">
                     <Sparkles size={18} />
@@ -255,12 +228,15 @@ export const ToolPage: React.FC = () => {
             </h4>
           </div>
 
-          <div className="group relative aspect-video rounded-3xl overflow-hidden border border-white/5 shadow-2xl bg-surface-low/50">
-            {activeThumbnail || isProcessing ? (
+          <div 
+            onClick={() => clips.length > 0 && handleWatchClip(clips[0])}
+            className={`group relative aspect-video rounded-3xl overflow-hidden border border-white/5 shadow-2xl bg-surface-low/50 ${clips.length > 0 && !isProcessing ? 'cursor-pointer hover:border-primary/40 transition-all' : ''}`}
+          >
+            {activeThumbnail || isProcessing || (clips.length > 0 && clips[0].thumbnailUrl) ? (
                <img 
-                 src={activeThumbnail || ""} 
+                 src={isProcessing ? activeThumbnail : (clips.length > 0 ? clips[0].thumbnailUrl : activeThumbnail)} 
                  alt="Preview" 
-                 className={`w-full h-full object-cover transition-all duration-1000 ${isProcessing ? 'blur-md scale-110 opacity-30' : 'opacity-60'}`}
+                 className={`w-full h-full object-cover transition-all duration-1000 ${isProcessing ? 'blur-md scale-110 opacity-30' : 'opacity-60 group-hover:opacity-80 group-hover:scale-105'}`}
                />
             ) : (
                <div className="absolute inset-0 flex flex-col items-center justify-center text-on-surface-variant/20 p-8 text-center space-y-4">
@@ -276,6 +252,14 @@ export const ToolPage: React.FC = () => {
                 </div>
                 <div className="space-y-1">
                   <p className="text-xs font-black uppercase tracking-[0.2em] text-primary">{processingStep}</p>
+                </div>
+              </div>
+            )}
+
+            {!isProcessing && clips.length > 0 && (
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all bg-black/20">
+                <div className="w-16 h-16 rounded-full bg-primary/20 backdrop-blur-md border border-primary/40 flex items-center justify-center">
+                  <Play size={32} className="text-primary fill-primary" />
                 </div>
               </div>
             )}
